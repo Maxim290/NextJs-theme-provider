@@ -1,8 +1,14 @@
 import "../styles/globals.css";
 import { ThemeProvider } from "../context/ThemeContext";
 import Layout from "../components/Layout";
+import { AppProps } from "next/app";
+import type { AppContext } from "next/app";
 
-function MyApp({ Component, pageProps, initialTheme }) {
+interface MyAppProps extends AppProps {
+    initialTheme: string;
+}
+
+function MyApp({ Component, pageProps, initialTheme }: MyAppProps) {
     return (
         <ThemeProvider initialTheme={initialTheme}>
             <Layout>
@@ -12,7 +18,7 @@ function MyApp({ Component, pageProps, initialTheme }) {
     );
 }
 
-MyApp.getInitialProps = async ({ ctx }) => {
+MyApp.getInitialProps = async ({ ctx }: AppContext) => {
     const initialTheme = ctx.req?.headers.cookie?.includes("theme=dark")
         ? "dark"
         : "light";
