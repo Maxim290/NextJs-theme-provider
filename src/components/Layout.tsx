@@ -1,10 +1,15 @@
 import dynamic from "next/dynamic";
 import { useTheme } from "../context/ThemeContext";
+import { ReactNode } from "react";
 
 const Header = dynamic(() => import("./Header"), { ssr: false });
 const Footer = dynamic(() => import("./Footer"), { ssr: false });
 
-export default function Layout({ children }) {
+interface LayoutProps {
+    children: ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
     const { theme, setTheme } = useTheme();
 
     return (
